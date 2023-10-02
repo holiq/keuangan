@@ -22,10 +22,10 @@
         include 'koneksi.php';
 
         $no = 1;
-        $data = mysqli_query($koneksi, "select * from user");
+        $data = mysqli_query($koneksi, 'select * from user');
 
         while ($d = mysqli_fetch_array($data)) {
-        ?>
+            ?>
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= $d['nama']; ?></td>

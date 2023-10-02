@@ -8,20 +8,19 @@
 <?php
 include 'koneksi.php';
 
-if (!empty($_POST['save'])) {
-  $nama = $_POST['nama'];
-  $password = $_POST['password'];
-  $level = $_POST['level'];
-  $status = $_POST['status'];
+if (! empty($_POST['save'])) {
+    $nama = $_POST['nama'];
+    $password = $_POST['password'];
+    $level = $_POST['level'];
+    $status = $_POST['status'];
 
+    $a = mysqli_query($koneksi, "insert into user (nama, password, level, status) VALUES ('$nama', '$password', '$level', '$status')");
 
-  $a = mysqli_query($koneksi, "insert into user (nama, password, level, status) VALUES ('$nama', '$password', '$level', '$status')");
-
-  if ($a) {
-    header("location:tampil_user.php");
-  } else {
-    echo mysqli_error($koneksi);
-  }
+    if ($a) {
+        header('location:tampil_user.php');
+    } else {
+        echo mysqli_error($koneksi);
+    }
 }
 ?>
 <body>
