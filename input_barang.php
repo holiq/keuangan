@@ -28,7 +28,7 @@ if (!empty($_POST['save'])) {
 
 <body>
   <h2>Pemprogaraman 3 2023</h2>
-  <h3>Tambah Data User</h3>
+  <h3>Tambah Data Barang</h3>
   <form method="post">
     <table>
       <tr>
