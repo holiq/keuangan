@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,25 @@
 <?php
 include 'koneksi.php';
 
-if (! empty($_POST['save'])) {
-    $nama = $_POST['nama'];
-    $password = $_POST['password'];
-    $level = $_POST['level'];
-    $status = $_POST['status'];
+if (!empty($_POST['save'])) {
+  $nama = $_POST['nama'];
+  $password = $_POST['password'];
+  $level = $_POST['level'];
+  $status = $_POST['status'];
 
-    $a = mysqli_query($koneksi, "insert into user (nama, password, level, status) VALUES ('$nama', '$password', '$level', '$status')");
+  $a = mysqli_query($koneksi, "insert into user (nama, password, level, status) VALUES ('$nama', '$password', '$level', '$status')");
 
-    if ($a) {
-        header('location:tampil_user.php');
-    } else {
-        echo mysqli_error($koneksi);
-    }
+  if ($a) {
+    header('location:tampil_user.php');
+  } else {
+    echo mysqli_error($koneksi);
+  }
 }
 ?>
+
 <body>
   <h2>Pemprogaraman 3 2023</h2>
+  <a href="./input_user.php">Kembali</a>
   <h3>Tambah Data User</h3>
   <form method="post">
     <table>
@@ -65,4 +68,5 @@ if (! empty($_POST['save'])) {
     </table>
   </form>
 </body>
+
 </html>

@@ -9,6 +9,7 @@
 
 <body>
     <h2>Pemprogaraman 3 2023</h2>
+    <a href="/">Kembali</a>
     <h5>Laporan Transaksi</h5>
     <table border="1">
         <tr>

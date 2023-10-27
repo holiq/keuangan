@@ -29,6 +29,7 @@ if (!empty($_POST['save'])) {
 
 <body>
     <h2>Pemprogaraman 3 2023</h2>
+    <a href="./input_transaksi.php">Kembali</a>
     <h3>Tambah Data Transaksi</h3>
     <form method="post">
         <table>

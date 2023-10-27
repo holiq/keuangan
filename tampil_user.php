@@ -9,6 +9,7 @@
 
 <body>
     <h2>Pemprogaraman 3 2023</h2>
+    <a href="/">Kembali</a>
     <a href="./input_user.php">Kembali</a>
     <table border="1">
         <tr>
@@ -25,7 +26,7 @@
         $data = mysqli_query($koneksi, 'select * from user');
 
         while ($d = mysqli_fetch_array($data)) {
-            ?>
+        ?>
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= $d['nama']; ?></td>

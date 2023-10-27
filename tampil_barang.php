@@ -9,6 +9,7 @@
 
 <body>
     <h2>Pemprogaraman 3 2023</h2>
+    <a href="/">Kembali</a>
     <a href="./input_barang.php">Tambah Barang</a>
     <table border="1">
         <tr>
