@@ -17,7 +17,7 @@ if (!empty($_POST['save'])) {
     $jumlah_transaksi = $_POST['jumlah_transaksi'];
     $user_id = $_POST['user_id'];
 
-    $a = mysqli_query($koneksi, "insert into barang (tgl_transaksi, no_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id) VALUES ('$tgl_transaksi', '$no_transaksi', $jenis_transaksi, '$barang_id', '$jumlah_transaksi', '$user_id')");
+    $a = mysqli_query($koneksi, "insert into transaksi (tgl_transaksi, no_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id) VALUES ('$tgl_transaksi', '$no_transaksi', '$jenis_transaksi', '$barang_id', '$jumlah_transaksi', '$user_id')");
 
     if ($a) {
         header('location:tampil_transaksi.php');
@@ -34,7 +34,7 @@ if (!empty($_POST['save'])) {
     <form method="post">
         <table>
             <tr>
-                <td>Tanggal Transaksi</td>
+                <td><label for="tgl_transaksi">Tanggal Transaksi</label></td>
                 <td><input type="date" name="tgl_transaksi" id="tgl_transaksi"></td>
             </tr>
             <tr>
@@ -95,6 +95,16 @@ if (!empty($_POST['save'])) {
             </tr>
         </table>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!Modernizr.inputtypes.date) {
+                $('input[type=date]').datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            }
+        });
+    </script>
+
 </body>
 
 </html>
