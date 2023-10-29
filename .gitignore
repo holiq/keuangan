@@ -1,0 +1,4 @@
+.env
+/bootstrap
+/storage
+/vendor
