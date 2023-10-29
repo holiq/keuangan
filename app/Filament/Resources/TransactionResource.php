@@ -12,7 +12,6 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 
 class TransactionResource extends Resource
 {
@@ -36,8 +35,15 @@ class TransactionResource extends Resource
                         $set('price_one', $product->price);
                     }),
                 Forms\Components\TextInput::make('no_transaction')
-                    ->default(Str::random())
-                    ->maxLength(255),
+                    ->default(
+                        function () {
+                            $idTransaction = Transaction::query()->get()->count();
+                            $noTransaction = 'TRX'.str_pad($idTransaction + 1, 6, '0', STR_PAD_LEFT);
+
+                            return $noTransaction;
+                        }
+                    )
+                    ->readOnly(),
                 Forms\Components\Select::make('type')->options([
                     'sell' => 'Sell',
                     'buy' => 'buy',
@@ -73,7 +79,8 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('product.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('no_transaction'),
+                Tables\Columns\TextColumn::make('no_transaction')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('qty')
