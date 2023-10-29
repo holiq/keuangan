@@ -29,4 +29,25 @@ class Transaction extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function getDiscountPriceAttribute(): int
+    {
+        if ($this->price_total > 100000) {
+            $discount = 10;
+        } else {
+            $discount = 0;
+        }
+
+        return $discount;
+    }
+
+    public function getPriceDiscountAttribute(): int
+    {
+        return $this->price_total * (($this->user->level->discount + $this->product->category->discount + $this->discount_price) / 100);
+    }
+
+    public function getTotalPaymentAttribute(): int
+    {
+        return $this->price_total - $this->price_discount;
+    }
 }
