@@ -9,22 +9,24 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Report extends Page implements HasTable
+class ReportSell extends Page implements HasTable
 {
     use InteractsWithTable;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament.pages.report';
+    protected static string $view = 'filament.pages.report-sell';
 
     public Transaction $transaction;
 
     public function table(Table $table): Table
     {
         return $table
-            ->query(Transaction::with('user.level', 'product.category'))
+            ->query(Transaction::with('user.level', 'product.category')->where('type', 'sell'))
             ->columns([
-                TextColumn::make('no_transaction'),
+                TextColumn::make('no_transaction')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('type'),
                 TextColumn::make('user.name'),
                 TextColumn::make('user.level.name'),
