@@ -13,9 +13,10 @@ if (!empty($_POST['save'])) {
   $nama = $_POST['nama'];
   $password = $_POST['password'];
   $level = $_POST['level'];
+  $level_id = $_POST['level_id'];
   $status = $_POST['status'];
 
-  $a = mysqli_query($koneksi, "insert into user (nama, password, level, status) VALUES ('$nama', '$password', '$level', '$status')");
+  $a = mysqli_query($koneksi, "insert into user (nama, password, level, status, id_level) VALUES ('$nama', '$password', '$level', '$status', '$level_id')");
 
   if ($a) {
     header('location:tampil_user.php');
@@ -40,7 +41,7 @@ if (!empty($_POST['save'])) {
         <td><input type="password" name="password" id="password"></td>
       </tr>
       <tr>
-        <td>Level</td>
+        <td>Role</td>
         <td>
           <select name="level" id="level">
             <option value="">--Pilih--</option>
@@ -58,6 +59,23 @@ if (!empty($_POST['save'])) {
             <option value="">--Pilih--</option>
             <option value="1">Aktif</option>
             <option value="0">Tidak Aktif</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Level</td>
+        <td>
+          <select name="level_id" id="level_id">
+            <option value="">--Pilih--</option>
+            <?php
+            $data = mysqli_query($koneksi, 'select * from level');
+
+            while ($d = mysqli_fetch_array($data)) {
+            ?>
+              <option value="<?= $d['id_level']; ?>"><?= $d['jenis_level']; ?></option>
+            <?php
+            }
+            ?>
           </select>
         </td>
       </tr>
