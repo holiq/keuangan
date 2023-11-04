@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('no_transaction');
             $table->enum('type', ['sell', 'buy']);
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('member_id')->constrained('members');
             $table->foreignId('product_id')->constrained('products');
             $table->integer('qty');
             $table->float('price_one');

@@ -23,8 +23,8 @@ class TransactionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                Forms\Components\Select::make('member_id')
+                    ->relationship('member', 'name')
                     ->required(),
                 Forms\Components\Select::make('product_id')
                     ->relationship('product', 'name')
@@ -74,7 +74,8 @@ class TransactionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('member.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product.name')
                     ->numeric()

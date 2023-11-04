@@ -22,14 +22,15 @@ class ReportSell extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Transaction::with('user.level', 'product.category')->where('type', 'sell'))
+            ->query(Transaction::with('user', 'member.level', 'product.category')->where('type', 'sell'))
             ->columns([
                 TextColumn::make('no_transaction')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type'),
                 TextColumn::make('user.name'),
-                TextColumn::make('user.level.name'),
+                TextColumn::make('member.name'),
+                TextColumn::make('member.level.name'),
                 TextColumn::make('product.name'),
                 TextColumn::make('product.category.name'),
                 TextColumn::make('qty'),
@@ -39,7 +40,7 @@ class ReportSell extends Page implements HasTable
                     ->money('IDR'),
                 TextColumn::make('discount_price')
                     ->suffix('%'),
-                TextColumn::make('user.level.discount')
+                TextColumn::make('member.level.discount')
                     ->label('Discount level')
                     ->suffix('%'),
                 TextColumn::make('product.category.discount')
@@ -51,7 +52,11 @@ class ReportSell extends Page implements HasTable
                 TextColumn::make('total_payment')
                     ->money('IDR'),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ]);
     }
 }

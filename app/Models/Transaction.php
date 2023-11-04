@@ -14,6 +14,7 @@ class Transaction extends Model
         'no_transaction',
         'type',
         'user_id',
+        'member_id',
         'product_id',
         'qty',
         'price_one',
@@ -23,6 +24,11 @@ class Transaction extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
     public function product(): BelongsTo
@@ -43,7 +49,7 @@ class Transaction extends Model
 
     public function getPriceDiscountAttribute(): int
     {
-        return $this->price_total * (($this->user->level->discount + $this->product->category->discount + $this->discount_price) / 100);
+        return $this->price_total * (($this->member->level->discount + $this->product->category->discount + $this->discount_price) / 100);
     }
 
     public function getTotalPaymentAttribute(): int
