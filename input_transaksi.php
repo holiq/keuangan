@@ -95,16 +95,6 @@ if (!empty($_POST['save'])) {
             </tr>
         </table>
     </form>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (!Modernizr.inputtypes.date) {
-                $('input[type=date]').datepicker({
-                    dateFormat: 'yy-mm-dd'
-                });
-            }
-        });
-    </script>
-
 </body>
 
 </html>
