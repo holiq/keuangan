@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pemprograman3.com</title>
-</head>
 <?php
+require './header.php';
 include 'koneksi.php';
 
 if (!empty($_POST['save'])) {
@@ -26,34 +19,30 @@ if (!empty($_POST['save'])) {
     }
 }
 ?>
-
-<body>
-    <h2>Pemprogaraman 3 2023</h2>
-    <a href="./input_transaksi.php">Kembali</a>
-    <h3>Tambah Data Transaksi</h3>
-    <form method="post">
-        <table>
-            <tr>
-                <td><label for="tgl_transaksi">Tanggal Transaksi</label></td>
-                <td><input type="date" name="tgl_transaksi" id="tgl_transaksi"></td>
-            </tr>
-            <tr>
-                <td>No Transaksi</td>
-                <td><input type="number" name="no_transaksi" id="no_transaksi"></td>
-            </tr>
-            <tr>
-                <td>Jenis Transaksi</td>
-                <td>
-                    <select name="jenis_transaksi" id="jenis_transaksi">
+<div class="d-flex justify-content-center">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Tambah Data Transaksi</h3>
+            <a href="./tampil_transaksi.php">Kembali</a>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="no_transaksi" class="form-label">No Transaksi</label>
+                    <input type="text" class="form-control" name="no_transaksi" id="no_transaksi">
+                </div>
+                <div class="mb-3">
+                    <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
+                    <input type="date" class="form-control" name="tgl_transaksi" id="tgl_transaksi">
+                </div>
+                <div class="mb-3">
+                    <label for="jenis_transaksi" class="form-label">Jenis Transaksi</label>
+                    <select name="jenis_transaksi" id="jenis_transaksi" class="form-control">
                         <option value="">--Pilih--</option>
                         <option value="jual">jual</option>
                         <option value="beli">beli</option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Barang</td>
-                <td>
+                </div>
+                <div class="mb-3">
+                    <label for="barang_id" class="form-label">Barang</label>
                     <select name="barang_id" id="barang_id">
                         <option value="">--Pilih--</option>
                         <?php
@@ -66,15 +55,9 @@ if (!empty($_POST['save'])) {
                         }
                         ?>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Jumlah Transaksi</td>
-                <td><input type="number" name="jumlah_transaksi" id="jumlah_transaksi"></td>
-            </tr>
-            <tr>
-                <td>User</td>
-                <td>
+                </div>
+                <div class="mb-3">
+                    <label for="user_id" class="form-label">Pembeli</label>
                     <select name="user_id" id="user_id">
                         <option value="">--Pilih--</option>
                         <?php
@@ -87,14 +70,12 @@ if (!empty($_POST['save'])) {
                         }
                         ?>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="SAVE" name="save"></td>
-            </tr>
-        </table>
-    </form>
-</body>
-
-</html>
+                </div>
+                <input type="submit" name="save" value="Submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+<?php
+require './footer.php';
+?>

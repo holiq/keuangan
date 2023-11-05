@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pemprograman3.com</title>
-</head>
-
-<body>
-    <h2>Pemprogaraman 3 2023</h2>
-    <a href="/">Kembali</a>
-    <a href="./input_barang.php">Tambah Barang</a>
-    <table border="1">
+<?php
+require './header.php';
+?>
+<h2>Daftar Barang</h2>
+<a href="/">Kembali</a>
+<a href="./input_barang.php">Tambah Barang</a>
+<table class="table">
+    <thead>
         <tr>
             <th>Nama</th>
             <th>Kode</th>
@@ -20,6 +14,8 @@
             <th>Harga</th>
             <th>Opsi</th>
         </tr>
+    </thead>
+    <tbody>
         <?php
         include 'koneksi.php';
 
@@ -41,7 +37,8 @@
         <?php
         }
         ?>
-    </table>
-</body>
-
-</html>
+    </tbody>
+</table>
+<?php
+require './footer.php';
+?>

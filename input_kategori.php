@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pemprograman3.com</title>
-</head>
 <?php
+require './header.php';
 include 'koneksi.php';
 
 if (!empty($_POST['save'])) {
@@ -22,27 +15,25 @@ if (!empty($_POST['save'])) {
   }
 }
 ?>
-
-<body>
-  <h2>Pemprogaraman 3 2023</h2>
-  <a href="./input_kategori.php">Kembali</a>
-  <h3>Tambah Data Kategori</h3>
-  <form method="post">
-    <table>
-      <tr>
-        <td>Nama</td>
-        <td><input type="text" name="nama" id="nama"></td>
-      </tr>
-      <tr>
-        <td>Diskon</td>
-        <td><input type="number" name="diskon" id="diskon" value="0"></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><input type="submit" value="SAVE" name="save"></td>
-      </tr>
-    </table>
-  </form>
-</body>
-
-</html>
+<div class="d-flex justify-content-center">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Tambah Data Kategori</h3>
+      <a href="./tampil_kategori.php">Kembali</a>
+      <form method="post">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nama</label>
+          <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <div class="mb-3">
+          <label for="diskon" class="form-label">Diskon</label>
+          <input type="text" class="form-control" name="diskon" id="diskon" value="0">
+        </div>
+        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+      </form>
+    </div>
+  </div>
+</div>
+<?php
+require './footer.php';
+?>

@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pemprograman3.com</title>
-</head>
-
-<body>
-    <h2>Pemprogaraman 3 2023</h2>
-    <a href="/">Kembali</a>
-    <a href="./input_user.php">Tambah Data User</a>
-    <table border="1">
+<?php
+require './header.php';
+?>
+<h2>Daftar User</h2>
+<a href="/">Kembali</a>
+<a href="./input_user.php">Tambah Data User</a>
+<table class="table">
+    <thead>
         <tr>
             <th>Nama</th>
             <th>Password</th>
@@ -20,6 +14,8 @@
             <th>Level</th>
             <th>Opsi</th>
         </tr>
+    </thead>
+    <tbody>
         <?php
         include 'koneksi.php';
 
@@ -31,7 +27,7 @@
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= $d['nama']; ?></td>
-                <td><?= $d['level']; ?></td>
+                <td><?= $d['role']; ?></td>
                 <td><?= $d['status']; ?></td>
                 <td><?= $d['jenis_level']; ?></td>
                 <td>
@@ -42,7 +38,8 @@
         <?php
         }
         ?>
-    </table>
-</body>
-
-</html>
+    </tbody>
+</table>
+<?php
+require './footer.php';
+?>

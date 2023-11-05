@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pemprograman3.com</title>
-</head>
 <?php
+require './header.php';
 include 'koneksi.php';
 
 if (!empty($_POST['save'])) {
@@ -26,32 +19,23 @@ if (!empty($_POST['save'])) {
 }
 ?>
 
-<body>
-  <h2>Pemprogaraman 3 2023</h2>
-  <a href="./input_barang.php">Kembali</a>
-  <h3>Tambah Data Barang</h3>
-  <form method="post">
-    <table>
-      <tr>
-        <td>Nama Barang</td>
-        <td><input type="text" name="nama" id="nama"></td>
-      </tr>
-      <tr>
-        <td>Kode Barang</td>
-        <td><input type="text" name="kode" id="kode"></td>
-      </tr>
-      <tr>
-        <td>Quantity</td>
-        <td><input type="number" name="qty" id="qty"></td>
-      </tr>
-      <tr>
-        <td>Harga</td>
-        <td><input type="number" name="harga" id="harga"></td>
-      </tr>
-      <tr>
-        <td>Kategori</td>
-        <td>
-          <select name="kategori" id="kategori">
+<div class="d-flex justify-content-center">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Tambah Data Barang</h3>
+      <a href="./tampil_barang.php">Kembali</a>
+      <form method="post">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nama Barang</label>
+          <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <div class="mb-3">
+          <label for="kode" class="form-label">Kode Barang</label>
+          <input type="text" class="form-control" name="kode" id="kode">
+        </div>
+        <div class="mb-3">
+          <label for="qty" class="form-label">Kategori</label>
+          <select name="kategori" id="kategori" class="form-control">
             <option value="">--Pilih--</option>
             <?php
             $data = mysqli_query($koneksi, 'select * from kategori');
@@ -63,14 +47,20 @@ if (!empty($_POST['save'])) {
             }
             ?>
           </select>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><input type="submit" value="SAVE" name="save"></td>
-      </tr>
-    </table>
-  </form>
-</body>
-
-</html>
+        </div>
+        <div class="mb-3">
+          <label for="qty" class="form-label">Jumlah Stock</label>
+          <input type="number" class="form-control" name="qty" id="qty">
+        </div>
+        <div class="mb-3">
+          <label for="harga" class="form-label">Harga Satuan</label>
+          <input type="number" class="form-control" name="harga" id="harga">
+        </div>
+        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+      </form>
+    </div>
+  </div>
+</div>
+<?php
+require './footer.php';
+?>
