@@ -20,16 +20,16 @@ require './header.php';
         include 'koneksi.php';
 
         $no = 1;
-        $data = mysqli_query($koneksi, 'select user.*, level.* from user join level on level.id_level=user.id_level');
+        $data = mysqli_query($koneksi, 'select user.*, level.* from user left join level on level.id_level=user.level_id');
 
         while ($d = mysqli_fetch_array($data)) {
         ?>
             <tr>
                 <td><?= $no++; ?></td>
-                <td><?= $d['nama']; ?></td>
+                <td><?= $d['nama_user']; ?></td>
                 <td><?= $d['role']; ?></td>
                 <td><?= $d['status']; ?></td>
-                <td><?= $d['jenis_level']; ?></td>
+                <td><?= $d['jenis_level'] ?? '-'; ?></td>
                 <td>
                     <a href="./edit_user.php?id=<?= $d['id'] ?>">EDIT</a>
                     <a href="./hapus_user.php?id=<?= $d['id'] ?>">HAPUS</a>

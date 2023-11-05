@@ -30,8 +30,8 @@ require './header.php';
                 <td><?= $d['qty']; ?></td>
                 <td><?= $d['harga']; ?></td>
                 <td>
-                    <a href="./edit_user.php?id=<?= $d['id'] ?>">EDIT</a>
-                    <a href="./hapus_user.php?id=<?= $d['id'] ?>">HAPUS</a>
+                    <a href="./edit_user.php?id=<?= $d['id_kategori'] ?>">EDIT</a>
+                    <a href="./hapus_user.php?id=<?= $d['id_kategori'] ?>">HAPUS</a>
                 </td>
             </tr>
         <?php

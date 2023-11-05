@@ -23,10 +23,10 @@ require './header.php';
         ?>
             <tr>
                 <td><?= $d['jenis_level']; ?></td>
-                <td><?= $d['jumlah_diskon_level']; ?></td>
+                <td><?= $d['diskon_level']; ?></td>
                 <td>
-                    <a href="./edit_user.php?id=<?= $d['id'] ?>">EDIT</a>
-                    <a href="./hapus_user.php?id=<?= $d['id'] ?>">HAPUS</a>
+                    <a href="./edit_user.php?id=<?= $d['id_level'] ?>">EDIT</a>
+                    <a href="./hapus_user.php?id=<?= $d['id_level'] ?>">HAPUS</a>
                 </td>
             </tr>
         <?php

@@ -26,8 +26,8 @@ if (!empty($_POST['save'])) {
       <a href="./tampil_barang.php">Kembali</a>
       <form method="post">
         <div class="mb-3">
-          <label for="name" class="form-label">Nama Barang</label>
-          <input type="text" class="form-control" name="name" id="name">
+          <label for="nama" class="form-label">Nama Barang</label>
+          <input type="text" class="form-control" name="nama" id="nama">
         </div>
         <div class="mb-3">
           <label for="kode" class="form-label">Kode Barang</label>

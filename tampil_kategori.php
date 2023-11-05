@@ -23,10 +23,10 @@ require './header.php';
         ?>
             <tr>
                 <td><?= $d['nama_kategori']; ?></td>
-                <td><?= $d['diskon']; ?></td>
+                <td><?= $d['diskon_kategori']; ?></td>
                 <td>
-                    <a href="./edit_user.php?id=<?= $d['id'] ?>">EDIT</a>
-                    <a href="./hapus_user.php?id=<?= $d['id'] ?>">HAPUS</a>
+                    <a href="./edit_user.php?id=<?= $d['id_kategori'] ?>">EDIT</a>
+                    <a href="./hapus_user.php?id=<?= $d['id_kategori'] ?>">HAPUS</a>
                 </td>
             </tr>
         <?php

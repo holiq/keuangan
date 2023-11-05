@@ -6,7 +6,7 @@ if (!empty($_POST['save'])) {
   $jenis = $_POST['jenis'];
   $diskon = $_POST['diskon'];
 
-  $a = mysqli_query($koneksi, "insert into level (jenis_level, jumlah_diskon_level) VALUES ('$jenis', '$diskon')");
+  $a = mysqli_query($koneksi, "insert into level (jenis_level, diskon_level) VALUES ('$jenis', '$diskon')");
 
   if ($a) {
     header('location:tampil_level.php');
@@ -26,7 +26,7 @@ if (!empty($_POST['save'])) {
           <input type="text" class="form-control" name="jenis" id="jenis">
         </div>
         <div class="mb-3">
-          <label for="diskon" class="form-label">Diskon</label>
+          <label for="diskon" class="form-label">Diskon Level</label>
           <input type="number" class="form-control" name="diskon" id="diskon">
         </div>
         <input type="submit" name="save" value="Submit" class="btn btn-primary">

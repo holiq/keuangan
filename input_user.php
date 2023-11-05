@@ -7,10 +7,10 @@ if (!empty($_POST['save'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
   $role = $_POST['role'];
-  $level_id = $_POST['level_id'];
+  $level_id = !empty($level_id) ? "'$level_id'" : "null";
   $status = $_POST['status'];
 
-  $a = mysqli_query($koneksi, "insert into user (nama, username, password, role, status, id_level) VALUES ('$nama', '$username', '$password', '$role', '$status', '$level_id')");
+  $a = mysqli_query($koneksi, "insert into user (nama_user, username, password, role, status, level_id) VALUES ('$nama', '$username', '$password', '$role', '$status', $level_id)");
 
   if ($a) {
     header('location:tampil_user.php');
@@ -30,8 +30,8 @@ if (!empty($_POST['save'])) {
           <input type="text" class="form-control" name="nama" id="nama">
         </div>
         <div class="mb-3">
-          <label for="usernama" class="form-label">Usernama</label>
-          <input type="text" class="form-control" name="usernama" id="usernama">
+          <label for="username" class="form-label">Usernama</label>
+          <input type="text" class="form-control" name="username" id="username">
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>

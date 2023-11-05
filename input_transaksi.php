@@ -9,8 +9,18 @@ if (!empty($_POST['save'])) {
     $barang_id = $_POST['barang_id'];
     $jumlah_transaksi = $_POST['jumlah_transaksi'];
     $user_id = $_POST['user_id'];
+    $getBarang = mysqli_query($koneksi, "select kategori.*, barang.* from barang join kategori on barang.kategori_id=kategori.id_kategori where id_barang='$barang_id'");
+    $barang = mysqli_fetch_array($getBarang);
+    $diskonBarang = $barang['diskon_kategori'];
+    $getLevel = mysqli_query($koneksi, "select level.* from user join level on user.level_id=level.id_level where user.id_user='$user_id'");
+    $level = mysqli_fetch_array($getLevel);
+    $diskonLevel = $level['diskon_level']??0;
+    $totalBelanja = $jumlah_transaksi * $barang['harga'];
+    $diskonBelanja = $totalBelanja >= 100000 ? 10 : 0;
+    $totalDiskon = $totalBelanja * (($diskonBelanja + $diskonLevel + $diskonBarang) / 100);
+    $totalPembayaran = $totalBelanja - $totalDiskon;
 
-    $a = mysqli_query($koneksi, "insert into transaksi (tgl_transaksi, no_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id) VALUES ('$tgl_transaksi', '$no_transaksi', '$jenis_transaksi', '$barang_id', '$jumlah_transaksi', '$user_id')");
+    $a = mysqli_query($koneksi, "insert into transaksi (tanggal_transaksi, nomor_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id, diskon_barang, diskon_level, total_belanja, diskon_belanja, total_diskon, total_pembayaran) VALUES ('$tgl_transaksi', '$no_transaksi', '$jenis_transaksi', '$barang_id', '$jumlah_transaksi', '$user_id', '$diskonBarang', '$diskonLevel', '$totalBelanja', '$diskonBelanja', '$totalDiskon', '$totalPembayaran')");
 
     if ($a) {
         header('location:tampil_transaksi.php');
@@ -43,7 +53,7 @@ if (!empty($_POST['save'])) {
                 </div>
                 <div class="mb-3">
                     <label for="barang_id" class="form-label">Barang</label>
-                    <select name="barang_id" id="barang_id">
+                    <select class="form-control" name="barang_id" id="barang_id">
                         <option value="">--Pilih--</option>
                         <?php
                         $data = mysqli_query($koneksi, 'select * from barang');
@@ -57,15 +67,19 @@ if (!empty($_POST['save'])) {
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="jumlah_transaksi" class="form-label">Jumlah Transaksi</label>
+                    <input type="number" class="form-control" name="jumlah_transaksi" id="jumlah_transaksi">
+                </div>
+                <div class="mb-3">
                     <label for="user_id" class="form-label">Pembeli</label>
-                    <select name="user_id" id="user_id">
+                    <select class="form-control" name="user_id" id="user_id">
                         <option value="">--Pilih--</option>
                         <?php
                         $data = mysqli_query($koneksi, 'select * from user');
 
                         while ($d = mysqli_fetch_array($data)) {
                         ?>
-                            <option value="<?= $d['id_user']; ?>"><?= $d['nama']; ?></option>
+                            <option value="<?= $d['id_user']; ?>"><?= $d['nama_user']; ?></option>
                         <?php
                         }
                         ?>
