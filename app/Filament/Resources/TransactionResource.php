@@ -25,9 +25,11 @@ class TransactionResource extends Resource
             ->schema([
                 Forms\Components\Select::make('member_id')
                     ->relationship('member', 'name')
+                    ->searchable()
                     ->required(),
                 Forms\Components\Select::make('product_id')
                     ->relationship('product', 'name')
+                    ->searchable()
                     ->required()
                     ->live()
                     ->afterStateUpdated(function (Set $set, $state) {

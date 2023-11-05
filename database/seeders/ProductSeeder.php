@@ -46,9 +46,9 @@ class ProductSeeder extends Seeder
             'price' => 12000,
         ]);
 
-        $products = Product::factory(100)->raw();
+        $products = Product::factory(20)->raw();
 
-        foreach (array_chunk($products, 10) as $data) {
+        foreach (array_chunk($products, 5) as $data) {
             Product::query()->insert($data);
         }
     }

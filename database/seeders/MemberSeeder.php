@@ -12,9 +12,9 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        $members = Member::factory(100)->raw();
+        $members = Member::factory(50)->raw();
 
-        foreach (array_chunk($members, 10) as $data) {
+        foreach (array_chunk($members, 5) as $data) {
             Member::query()->insert($data);
         }
     }
