@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+$file = basename($_SERVER['PHP_SELF']);
+
+if (!isset($_SESSION['login_status'])) {
+    $protect = [
+        'index.php',
+        'input_barang.php',
+        'input_kategori.php',
+        'input_level.php',
+        'input_transaksi.php',
+        'input_user.php',
+        'tampil_barang.php',
+        'tampil_kategori.php',
+        'tampil_level.php',
+        'tampil_transaksi.php',
+        'tampil_user.php',
+    ];
+
+    if (in_array($file, $protect)) {
+        header("location:login.php");
+    }
+} else {
+    if ($file == 'login.php') {
+        header("location:index.php");
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,16 +62,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./tampil_transaksi.php">Transaksi</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                    <?php
+                    if (isset($_SESSION['login_status'])) :
+                    ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?= $_SESSION['login_status']; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="./logout.php">Logout</a></li>
+                            </ul>
+                        </li>
+                    <?php
+                    endif;
+                    ?>
                 </ul>
             </div>
         </div>
