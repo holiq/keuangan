@@ -18,11 +18,13 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $categoryId = Category::query()->pluck('id')->toArray();
+        $name = $this->faker->words(1, true);
 
         return [
-            'name' => $this->faker->words(1, true),
+            'name' => $name,
+            'code' => $name,
             'category_id' => $this->faker->randomElement($categoryId),
-            'qty' => $this->faker->numberBetween(1, 100),
+            'quantity' => $this->faker->numberBetween(1, 100),
             'price' => $this->faker->numberBetween(20000, 120000),
         ];
     }

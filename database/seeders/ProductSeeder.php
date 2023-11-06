@@ -14,35 +14,40 @@ class ProductSeeder extends Seeder
     {
         Product::query()->create([
             'name' => 'Pensil',
+            'code' => 'pnsl',
             'category_id' => 1,
-            'qty' => 10,
+            'quantity' => 10,
             'price' => 5000,
         ]);
 
         Product::query()->create([
             'name' => 'Buku',
+            'code' => 'bku',
             'category_id' => 1,
-            'qty' => 10,
+            'quantity' => 10,
             'price' => 8000,
         ]);
 
         Product::query()->create([
             'name' => 'PlayStation 8',
+            'code' => 'ps8',
             'category_id' => 2,
-            'qty' => 10,
+            'quantity' => 10,
             'price' => 2000000,
         ]);
         Product::query()->create([
             'name' => 'Gula 1kg',
+            'code' => 'gla1',
             'category_id' => 1,
-            'qty' => 10,
+            'quantity' => 10,
             'price' => 18000,
         ]);
 
         Product::query()->create([
             'name' => 'Beras 1L',
+            'code' => 'brs1',
             'category_id' => 1,
-            'qty' => 10,
+            'quantity' => 10,
             'price' => 12000,
         ]);
 
