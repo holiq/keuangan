@@ -4,22 +4,17 @@ include 'koneksi.php';
 
 if (!empty($_POST['save'])) {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $msg = '';
+    $password = $_POST['password'] ? md5($_POST['password']) : '';
 
     if (empty($username) && empty($password)) {
         $msg = 'Username dan Password tidak boleh kosong';
+    } elseif (empty($username)) {
+        $msg = 'Username tidak boleh kosong';
+    } elseif (empty($password)) {
+        $msg = 'Password tidak boleh kosong';
     } else {
-        if (empty($username)) {
-            $msg = 'Username tidak boleh kosong';
-        }
-        if (empty($password)) {
-            $msg = 'Password tidak boleh kosong';
-        }
-
         $getUser = mysqli_query($koneksi, "select * from user where user.username='$username' and user.password='$password'");
         $user = mysqli_fetch_array($getUser);
-
         if (empty($user)) {
             $msg = 'Akun tidak ditemukan';
         } else {

@@ -1,5 +1,9 @@
 <?php
 require './header.php';
+
+if (!isset($_SESSION['login_status'])) {
+    header("location:login.php");
+}
 ?>
 <h3>Laporan Transaksi</h3>
 <div class="table-responsive">
