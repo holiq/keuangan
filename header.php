@@ -80,4 +80,4 @@ if (!isset($_SESSION['login_status'])) {
             </div>
         </div>
     </nav>
-    <main class="container">
+    <main class="container my-5">

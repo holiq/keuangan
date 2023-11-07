@@ -15,6 +15,7 @@ if (!empty($_POST['save'])) {
     } else {
         $getUser = mysqli_query($koneksi, "select * from user where user.username='$username' and user.password='$password'");
         $user = mysqli_fetch_array($getUser);
+
         if (empty($user)) {
             $msg = 'Akun tidak ditemukan';
         } else {
@@ -28,34 +29,33 @@ if (!empty($_POST['save'])) {
 }
 ?>
 
-<div class="d-flex justify-content-center">
-    <div class="card">
-        <div class="card-body">
-            <h3 class="card-title">LOGIN</h3>
-            <?php
-            if (isset($msg)) :
-            ?>
-                <div class="bg-danger text-white rounded px-2">
-                    <ul>
-                        <li>
-                            <?= $msg; ?>
-                        </li>
-                    </ul>
-                </div>
-            <?php
-            endif;
-            ?>
-            <form method="post">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" id="username">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                </div>
-                <input type="submit" name="save" value="Submit" class="btn btn-primary">
-            </form>
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6 col-md-8 col-sm-10 col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">Login</h2>
+                <?php
+                if (isset($msg)) :
+                ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= $msg; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                endif;
+                ?>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <input type="submit" name="save" class="btn btn-primary" value="LOGIN" />
+                </form>
+            </div>
         </div>
     </div>
 </div>
