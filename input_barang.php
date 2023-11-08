@@ -24,7 +24,6 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Barang</h2>
-                <a href="./tampil_barang.php">Kembali</a>
                 <form method="post">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Barang</label>
@@ -57,7 +56,10 @@ if (!empty($_POST['save'])) {
                         <label for="harga" class="form-label">Harga Satuan</label>
                         <input type="number" class="form-control" name="harga" id="harga">
                     </div>
-                    <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                    <div class="d-flex justify-content-end gap-4">
+                        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                        <a class="btn btn-danger" href="./tampil_barang.php">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>

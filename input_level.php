@@ -20,8 +20,7 @@ if (!empty($_POST['save'])) {
     <div class="col-lg-6 col-md-8 col-sm-10 col-12">
         <div class="card">
             <div class="card-body">
-                <h2 class="text-center">Tambah Data Kategori</h2>
-                <a href="./tampil_level.php">Kembali</a>
+                <h2 class="text-center">Tambah Data Level</h2>
                 <form method="post">
                     <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis Level</label>
@@ -31,7 +30,10 @@ if (!empty($_POST['save'])) {
                         <label for="diskon" class="form-label">Diskon Level</label>
                         <input type="number" class="form-control" name="diskon" id="diskon">
                     </div>
-                    <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                    <div class="d-flex justify-content-end gap-4">
+                        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                        <a class="btn btn-danger" href="./tampil_level.php">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>

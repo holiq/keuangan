@@ -2,9 +2,13 @@
 require './header.php';
 include 'koneksi.php';
 
+$getTransaksi = mysqli_query($koneksi, "select count(id_transaksi) as totalId from transaksi");
+$transaksi = mysqli_fetch_array($getTransaksi);
+$idTransaksi = 'TRX' . str_pad($transaksi['totalId'] + 1, 6, '0', STR_PAD_LEFT);
+
 if (!empty($_POST['save'])) {
     $tgl_transaksi = $_POST['tgl_transaksi'];
-    $no_transaksi = $_POST['no_transaksi'];
+    $no_transaksi = $idTransaksi;
     $jenis_transaksi = $_POST['jenis_transaksi'];
     $barang_id = $_POST['barang_id'];
     $jumlah_transaksi = $_POST['jumlah_transaksi'];
@@ -35,11 +39,10 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Transaksi</h2>
-                <a href="./tampil_transaksi.php">Kembali</a>
                 <form method="post">
                     <div class="mb-3">
                         <label for="no_transaksi" class="form-label">No Transaksi</label>
-                        <input type="text" class="form-control" name="no_transaksi" id="no_transaksi">
+                        <input type="text" class="form-control" name="no_transaksi" id="no_transaksi" value="<?= $idTransaksi; ?>" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
@@ -87,7 +90,10 @@ if (!empty($_POST['save'])) {
                         <label for="jumlah_transaksi" class="form-label">Jumlah Transaksi</label>
                         <input type="number" class="form-control" name="jumlah_transaksi" id="jumlah_transaksi">
                     </div>
-                    <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                    <div class="d-flex justify-content-end gap-4">
+                        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                        <a class="btn btn-danger" href="./tampil_transaksi.php">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>

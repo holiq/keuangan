@@ -25,7 +25,6 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data User</h2>
-                <a href="./tampil_user.php">Kembali</a>
                 <form method="post">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
@@ -72,7 +71,10 @@ if (!empty($_POST['save'])) {
                             ?>
                         </select>
                     </div>
-                    <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                    <div class="d-flex justify-content-end gap-4">
+                        <input type="submit" name="save" value="Submit" class="btn btn-primary">
+                        <a class="btn btn-danger" href="./tampil_user.php">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>
