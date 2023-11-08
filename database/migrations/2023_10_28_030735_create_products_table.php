@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code');
             $table->foreignId('category_id')->constrained('categories');
             $table->integer('quantity');
-            $table->float('price');
+            $table->float('price', 12);
             $table->timestamps();
         });
     }

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('member_id')->constrained('members');
             $table->foreignId('product_id')->constrained('products');
             $table->integer('qty');
-            $table->float('price_one');
-            $table->float('price_total');
+            $table->float('price_one', 12);
+            $table->float('price_total', 12);
             $table->timestamps();
         });
     }
