@@ -21,7 +21,10 @@ if (!empty($_POST['save'])) {
         } else {
             unset($_SESSION['login_status']);
 
-            $_SESSION['login_status'] = $user['nama_user'];
+            $_SESSION['login_status'] = [
+                'nama' => $user['nama_user'],
+                'role' => $user['role']
+            ];
 
             header("location:index.php");
         }
