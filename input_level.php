@@ -1,17 +1,22 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 if (!empty($_POST['save'])) {
-    $jenis = $_POST['jenis'];
-    $diskon = $_POST['diskon'];
+    $jenis_level = $_POST['jenis'];
+    $diskon_level = $_POST['diskon'];
 
-    $a = mysqli_query($koneksi, "insert into level (jenis_level, diskon_level) VALUES ('$jenis', '$diskon')");
+    $errors = validate(compact('jenis_level', 'diskon_level'));
 
-    if ($a) {
-        header('location:tampil_level.php');
-    } else {
-        echo mysqli_error($koneksi);
+    if (empty($errors)) {
+        $a = mysqli_query($koneksi, "insert into level (jenis_level, diskon_level) VALUES ('$jenis_level', '$diskon_level')");
+
+        if ($a) {
+            header('location:tampil_level.php');
+        } else {
+            echo mysqli_error($koneksi);
+        }
     }
 }
 ?>
@@ -21,6 +26,7 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Level</h2>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis Level</label>

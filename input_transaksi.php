@@ -1,35 +1,40 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 $getTransaksi = mysqli_query($koneksi, "select count(id_transaksi) as totalId from transaksi");
 $transaksi = mysqli_fetch_array($getTransaksi);
 $idTransaksi = 'TRX' . str_pad($transaksi['totalId'] + 1, 6, '0', STR_PAD_LEFT);
 
 if (!empty($_POST['save'])) {
-    $tgl_transaksi = $_POST['tgl_transaksi'];
+    $tanggal_transaksi = $_POST['tgl_transaksi'];
     $no_transaksi = $idTransaksi;
     $jenis_transaksi = $_POST['jenis_transaksi'];
     $barang_id = $_POST['barang_id'];
     $jumlah_transaksi = $_POST['jumlah_transaksi'];
-    $user_id = $_POST['user_id'];
-    $getBarang = mysqli_query($koneksi, "select kategori.*, barang.* from barang join kategori on barang.kategori_id=kategori.id_kategori where id_barang='$barang_id'");
-    $barang = mysqli_fetch_array($getBarang);
-    $diskonBarang = $barang['diskon_kategori'];
-    $getLevel = mysqli_query($koneksi, "select level.* from user join level on user.level_id=level.id_level where user.id_user='$user_id'");
-    $level = mysqli_fetch_array($getLevel);
-    $diskonLevel = $level['diskon_level'] ?? 0;
-    $totalBelanja = $jumlah_transaksi * $barang['harga'];
-    $diskonBelanja = $totalBelanja >= 100000 ? 10 : 0;
-    $totalDiskon = $totalBelanja * (($diskonBelanja + $diskonLevel + $diskonBarang) / 100);
-    $totalPembayaran = $totalBelanja - $totalDiskon;
+    $user = $_POST['user_id'];
+    $errors = validate(compact('tanggal_transaksi', 'jenis_transaksi', 'user', 'barang', 'jumlah_transaksi'));
 
-    $a = mysqli_query($koneksi, "insert into transaksi (tanggal_transaksi, nomor_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id, diskon_barang, diskon_level, total_belanja, diskon_belanja, total_diskon, total_pembayaran) VALUES ('$tgl_transaksi', '$no_transaksi', '$jenis_transaksi', '$barang_id', '$jumlah_transaksi', '$user_id', '$diskonBarang', '$diskonLevel', '$totalBelanja', '$diskonBelanja', '$totalDiskon', '$totalPembayaran')");
+    if (empty($errors)) {
+        $getBarang = mysqli_query($koneksi, "select kategori.*, barang.* from barang join kategori on barang.kategori_id=kategori.id_kategori where id_barang='$barang_id'");
+        $barang = mysqli_fetch_array($getBarang);
+        $diskonBarang = $barang['diskon_kategori'];
+        $getLevel = mysqli_query($koneksi, "select level.* from user join level on user.level_id=level.id_level where user.id_user='$user'");
+        $level = mysqli_fetch_array($getLevel);
+        $diskonLevel = $level['diskon_level'] ?? 0;
+        $totalBelanja = $jumlah_transaksi * $barang['harga'];
+        $diskonBelanja = $totalBelanja >= 100000 ? 10 : 0;
+        $totalDiskon = $totalBelanja * (($diskonBelanja + $diskonLevel + $diskonBarang) / 100);
+        $totalPembayaran = $totalBelanja - $totalDiskon;
 
-    if ($a) {
-        header('location:tampil_transaksi.php');
-    } else {
-        echo mysqli_error($koneksi);
+        $a = mysqli_query($koneksi, "insert into transaksi (tanggal_transaksi, nomor_transaksi, jenis_transaksi, barang_id, jumlah_transaksi, user_id, diskon_barang, diskon_level, total_belanja, diskon_belanja, total_diskon, total_pembayaran) VALUES ('$tanggal_transaksi', '$no_transaksi', '$jenis_transaksi', '$barang_id', '$jumlah_transaksi', '$user', '$diskonBarang', '$diskonLevel', '$totalBelanja', '$diskonBelanja', '$totalDiskon', '$totalPembayaran')");
+
+        if ($a) {
+            header('location:tampil_transaksi.php');
+        } else {
+            echo mysqli_error($koneksi);
+        }
     }
 }
 ?>
@@ -39,6 +44,7 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Transaksi</h2>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="no_transaksi" class="form-label">No Transaksi</label>

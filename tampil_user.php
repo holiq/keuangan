@@ -7,8 +7,9 @@ require './header.php';
 <table class="table">
     <thead>
         <tr>
+            <th>No</th>
             <th>Nama</th>
-            <th>Password</th>
+            <th>Username</th>
             <th>Role</th>
             <th>Status</th>
             <th>Level</th>
@@ -27,6 +28,7 @@ require './header.php';
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= $d['nama_user']; ?></td>
+                <td><?= $d['username']; ?></td>
                 <td><?= $d['role']; ?></td>
                 <td><?= $d['status']; ?></td>
                 <td><?= $d['jenis_level'] ?? '-'; ?></td>

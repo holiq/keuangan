@@ -1,23 +1,20 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 if (!empty($_POST['save'])) {
     $username = $_POST['username'];
-    $password = $_POST['password'] ? md5($_POST['password']) : '';
+    $password = $_POST['password'] ?? md5($_POST['password']);
 
-    if (empty($username) && empty($password)) {
-        $msg = 'Username dan Password tidak boleh kosong';
-    } elseif (empty($username)) {
-        $msg = 'Username tidak boleh kosong';
-    } elseif (empty($password)) {
-        $msg = 'Password tidak boleh kosong';
-    } else {
+    $errors = validate(compact('username', 'password'));
+
+    if (empty($errors)) {
         $getUser = mysqli_query($koneksi, "select * from user where user.username='$username' and user.password='$password'");
         $user = mysqli_fetch_array($getUser);
 
         if (empty($user)) {
-            $msg = 'Akun tidak ditemukan';
+            $errors[] = 'Akun tidak ditemukan';
         } else {
             unset($_SESSION['login_status']);
 
@@ -37,16 +34,7 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Login</h2>
-                <?php
-                if (isset($msg)) :
-                ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $msg; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php
-                endif;
-                ?>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

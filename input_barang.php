@@ -1,20 +1,25 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 if (!empty($_POST['save'])) {
-    $nama = $_POST['nama'];
-    $kode = $_POST['kode'];
-    $qty = $_POST['qty'];
-    $harga = $_POST['harga'];
+    $nama_barang = $_POST['nama'];
+    $kode_barang = $_POST['kode'];
+    $jumlah_stok = $_POST['qty'];
+    $harga_satuan = $_POST['harga'];
     $kategori = $_POST['kategori'];
 
-    $a = mysqli_query($koneksi, "INSERT INTO barang (nama_barang, kode_barang, qty, harga, kategori_id) VALUES ('$nama', '$kode', '$qty', '$harga', '$kategori')");
+    $errors = validate(compact('nama_barang', 'kode_barang', 'kategori', 'jumlah_stok', 'harga_satuan'));
 
-    if ($a) {
-        header('location:tampil_barang.php');
-    } else {
-        echo mysqli_error($koneksi);
+    if (empty($errors)) {
+        $a = mysqli_query($koneksi, "INSERT INTO barang (nama_barang, kode_barang, qty, harga, kategori_id) VALUES ('$nama_barang', '$kode_barang', '$jumlah_stok', '$harga_satuan', '$kategori')");
+
+        if ($a) {
+            header('location:tampil_barang.php');
+        } else {
+            echo mysqli_error($koneksi);
+        }
     }
 }
 ?>
@@ -24,13 +29,14 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Barang</h2>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Barang</label>
                         <input type="text" class="form-control" name="nama" id="nama">
                     </div>
                     <div class="mb-3">
-                        <label for "kode" class="form-label">Kode Barang</label>
+                        <label for="kode" class="form-label">Kode Barang</label>
                         <input type="text" class="form-control" name="kode" id="kode">
                     </div>
                     <div class="mb-3">
@@ -49,7 +55,7 @@ if (!empty($_POST['save'])) {
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="qty" class="form-label">Jumlah Stock</label>
+                        <label for="qty" class="form-label">Jumlah Stok</label>
                         <input type="number" class="form-control" name="qty" id="qty">
                     </div>
                     <div class="mb-3">

@@ -1,17 +1,22 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 if (!empty($_POST['save'])) {
-    $nama = $_POST['nama'];
-    $diskon = $_POST['diskon'];
+    $nama_kategori = $_POST['nama'];
+    $diskon_kategori = $_POST['diskon'];
 
-    $a = mysqli_query($koneksi, "insert into kategori (nama_kategori, diskon_kategori) VALUES ('$nama', '$diskon')");
+    $errors = validate(compact('nama_kategori'));
 
-    if ($a) {
-        header('location:tampil_kategori.php');
-    } else {
-        echo mysqli_error($koneksi);
+    if (empty($errors)) {
+        $a = mysqli_query($koneksi, "insert into kategori (nama_kategori, diskon_kategori) VALUES ('$nama_kategori', '$diskon_kategori')");
+
+        if ($a) {
+            header('location:tampil_kategori.php');
+        } else {
+            echo mysqli_error($koneksi);
+        }
     }
 }
 ?>
@@ -21,6 +26,7 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data Kategori</h2>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Kategori</label>

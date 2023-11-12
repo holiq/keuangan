@@ -1,21 +1,27 @@
 <?php
 require './header.php';
-include 'koneksi.php';
+include './koneksi.php';
+include './validation.php';
 
 if (!empty($_POST['save'])) {
     $nama = $_POST['nama'];
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = $_POST['password'] ?? md5($_POST['password']);
     $role = $_POST['role'];
-    $level_id = !empty($level_id) ? "'$level_id'" : "null";
+    $level_id = $_POST['level_id'];
+    $level = !empty($level_id) ? "'$level_id'" : "null";
     $status = $_POST['status'];
 
-    $a = mysqli_query($koneksi, "insert into user (nama_user, username, password, role, status, level_id) VALUES ('$nama', '$username', '$password', '$role', '$status', $level_id)");
+    $errors = validate(compact('nama', 'username', 'password', 'role', 'status'));
 
-    if ($a) {
-        header('location:tampil_user.php');
-    } else {
-        echo mysqli_error($koneksi);
+    if (empty($errors)) {
+        $a = mysqli_query($koneksi, "insert into user (nama_user, username, password, role, status, level_id) VALUES ('$nama', '$username', '$password', '$role', '$status', $level)");
+
+        if ($a) {
+            header('location:tampil_user.php');
+        } else {
+            echo mysqli_error($koneksi);
+        }
     }
 }
 ?>
@@ -25,6 +31,7 @@ if (!empty($_POST['save'])) {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center">Tambah Data User</h2>
+                <?= response($errors) ?>
                 <form method="post">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
