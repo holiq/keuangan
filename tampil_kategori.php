@@ -25,8 +25,12 @@ require './header.php';
                 <td><?= $d['nama_kategori']; ?></td>
                 <td><?= $d['diskon_kategori']; ?></td>
                 <td>
-                    <a href="./edit_user.php?id=<?= $d['id_kategori'] ?>">EDIT</a>
-                    <a href="./hapus_user.php?id=<?= $d['id_kategori'] ?>">HAPUS</a>
+                    <?php if ($role == 'admin' || $role == 'manager' || $role == 'spv'): ?>
+                    <a href="./edit_kategori.php?id=<?= $d['id_kategori'] ?>">EDIT</a>
+                    <a href="./hapus_kategori.php?id=<?= $d['id_kategori'] ?>">HAPUS</a>
+                    <?php else: ?>
+                    <span>-</span>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php

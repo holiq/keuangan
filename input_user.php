@@ -6,7 +6,7 @@ include './validation.php';
 if (!empty($_POST['save'])) {
     $nama = $_POST['nama'];
     $username = $_POST['username'];
-    $password = $_POST['password'] ?? md5($_POST['password']);
+    $password = $_POST['password'] == '' ? null : md5($_POST['password']);
     $role = $_POST['role'];
     $level_id = $_POST['level_id'];
     $level = !empty($level_id) ? "'$level_id'" : "null";
@@ -50,7 +50,7 @@ if (!empty($_POST['save'])) {
                         <select class="form-control" name="role" id="role">
                             <option value="">--Pilih--</option>
                             <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
+                            <option value="staf">Staf</option>
                             <option value="spv">SPV</option>
                             <option value="manager">Manager</option>
                         </select>

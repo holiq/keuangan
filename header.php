@@ -27,11 +27,16 @@ if (!isset($_SESSION['login_status'])) {
 
     $role = $_SESSION['login_status']['role'];
 
-    if ($role == 'staf' && ($file != 'tampil_transaksi.php' && $file != 'input_transaksi.php')) {
+    if ($role == 'staf' && ($file != 'tampil_transaksi.php' || $file != 'input_transaksi.php' || $file != 'edit_transaksi.php' || $file != 'hapus_transaksi.php')) {
         header("location:tampil_transaksi.php");
+    }
+
+    if ($role != 'admin' && ($file == 'tampil_user.php' || $file == 'input_user.php' || $file == 'edit_user.php' || $file == 'hapus_user.php')) {
+        header("location:index.php");
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,21 +60,21 @@ if (!isset($_SESSION['login_status'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <?php if ($role != 'staf'): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./tampil_kategori.php">Kategori</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./tampil_barang.php">Barang</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./tampil_level.php">Level</a>
-                        </li>
-                        <?php if ($role == 'admin'): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./tampil_user.php">User</a>
-                        </li>
-                        <?php endif; ?>
+                        <?php if ($role != 'staf') : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./tampil_kategori.php">Kategori</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./tampil_barang.php">Barang</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./tampil_level.php">Level</a>
+                            </li>
+                            <?php if ($role == 'admin') : ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./tampil_user.php">User</a>
+                                </li>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="./tampil_transaksi.php">Transaksi</a>

@@ -29,11 +29,11 @@ require './header.php';
             <td><?= $d['jumlah_transaksi']; ?></td>
             <td><?= $d['tanggal_transaksi']; ?></td>
             <td>
-                <?php if ($role != 'staf'): ?>
-                <a href="./edit_user.php?id=<?= $d['id_transaksi'] ?>">EDIT</a>
-                <a href="./hapus_user.php?id=<?= $d['id_transaksi'] ?>">HAPUS</a>
-                <?php else: ?>
-                -
+                <?php if ($role != 'staf') : ?>
+                    <a href="./edit_user.php?id=<?= $d['id_transaksi'] ?>">EDIT</a>
+                    <a href="./hapus_user.php?id=<?= $d['id_transaksi'] ?>">HAPUS</a>
+                <?php else : ?>
+                    <span>-</span>
                 <?php endif; ?>
             </td>
         </tr>
