@@ -5,7 +5,7 @@ include './validation.php';
 
 if (!empty($_POST['save'])) {
     $username = $_POST['username'];
-    $password = $_POST['password'] ?? md5($_POST['password']);
+    $password = $_POST['password'] == '' ? null : md5($_POST['password']);
 
     $errors = validate(compact('username', 'password'));
 

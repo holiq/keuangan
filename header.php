@@ -2,28 +2,33 @@
 session_start();
 
 $file = basename($_SERVER['PHP_SELF']);
+$protect = [
+    'index.php',
+    'input_barang.php',
+    'input_kategori.php',
+    'input_level.php',
+    'input_transaksi.php',
+    'input_user.php',
+    'tampil_barang.php',
+    'tampil_kategori.php',
+    'tampil_level.php',
+    'tampil_transaksi.php',
+    'tampil_user.php',
+];
 
 if (!isset($_SESSION['login_status'])) {
-    $protect = [
-        'index.php',
-        'input_barang.php',
-        'input_kategori.php',
-        'input_level.php',
-        'input_transaksi.php',
-        'input_user.php',
-        'tampil_barang.php',
-        'tampil_kategori.php',
-        'tampil_level.php',
-        'tampil_transaksi.php',
-        'tampil_user.php',
-    ];
-
     if (in_array($file, $protect)) {
         header("location:login.php");
     }
 } else {
     if ($file == 'login.php') {
         header("location:index.php");
+    }
+
+    $role = $_SESSION['login_status']['role'];
+
+    if ($role == 'staf' && ($file != 'tampil_transaksi.php' && $file != 'input_transaksi.php')) {
+        header("location:tampil_transaksi.php");
     }
 }
 ?>
@@ -50,6 +55,7 @@ if (!isset($_SESSION['login_status'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
+                        <?php if ($role != 'staf'): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="./tampil_kategori.php">Kategori</a>
                         </li>
@@ -59,9 +65,12 @@ if (!isset($_SESSION['login_status'])) {
                         <li class="nav-item">
                             <a class="nav-link" href="./tampil_level.php">Level</a>
                         </li>
+                        <?php if ($role == 'admin'): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="./tampil_user.php">User</a>
                         </li>
+                        <?php endif; ?>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="./tampil_transaksi.php">Transaksi</a>
                         </li>
