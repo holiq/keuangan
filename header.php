@@ -27,7 +27,7 @@ if (!isset($_SESSION['login_status'])) {
 
     $role = $_SESSION['login_status']['role'];
 
-    if ($role == 'staf' && ($file != 'tampil_transaksi.php' || $file != 'input_transaksi.php' || $file != 'edit_transaksi.php' || $file != 'hapus_transaksi.php')) {
+    if ($role == 'staf' && ($file != 'tampil_transaksi.php' && $file != 'input_transaksi.php')) {
         header("location:tampil_transaksi.php");
     }
 
